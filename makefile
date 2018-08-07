@@ -2,7 +2,7 @@ OBJ = main.o
 all: game
 
 game: $(OBJ)
-	g++ $(OBJ) -o fireworks -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+	g++ $(OBJ) -o fireworks.out -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 	./fireworks -g
 
 main.o: main.cpp
