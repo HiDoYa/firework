@@ -68,15 +68,18 @@ int main() {
 
 void addFireworks(std::vector<std::shared_ptr<Firework>>& fr, std::vector<bool>& done) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-		for (int i = 0; i < done.size(); i++) {
-			if (done[i]) {
-				fr[i] = std::make_shared<Firework>();
-				done[i] = false;
-				return;
+		// Release 1-3 fireworks at once
+		for (int i = 0; i < rand() % 3 + 1; i++) {
+			for (int i = 0; i < done.size(); i++) {
+				if (done[i]) {
+					fr[i] = std::make_shared<Firework>();
+					done[i] = false;
+					return;
+				}
 			}
-		}
 
-		fr.push_back(std::make_shared<Firework>());
-		done.push_back(false);
+			fr.push_back(std::make_shared<Firework>());
+			done.push_back(false);
+		}
 	}
 }
