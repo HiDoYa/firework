@@ -7,6 +7,8 @@ class Firework {
 	private:
 		sf::CircleShape circle;
 		sf::VertexArray circleTail;
+		std::vector<sf::Vector2f> velocityTail;
+
 		sf::VertexArray particles;
 		std::vector<sf::Vector2f> velocity;
 		std::vector<sf::Vector2f> acceleration;

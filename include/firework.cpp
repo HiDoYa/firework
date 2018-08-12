@@ -25,6 +25,7 @@ Firework::Firework() {
 	circle.setRadius(5);
 	circle.setPosition(startXInput, SCREEN_HEIGHT);
 	circle.setFillColor(initialColor);
+	circleTail.setPrimitiveType(sf::PrimitiveType::Points);
 
 	// Set particles
 	particles.resize(numParticles);
@@ -85,6 +86,7 @@ void Firework::initialColorChooser() {
 bool Firework::execute() {
 	if (!explode) {
 		goUp();
+		circleTailAnimate();
 	} else {
 		explodeHandle();
 	}
@@ -92,9 +94,22 @@ bool Firework::execute() {
 }
 
 void Firework::circleTailAnimate() {
-	// TODO
 	int last = circleTail.getVertexCount();
-	circleTail.resize(last + 50);
+	circleTail.resize(last + 2);
+	velocityTail.resize(last + 2);
+	for (int i = last; i < circleTail.getVertexCount(); i++) {
+		circleTail[i].position = circle.getPosition();
+		circleTail[i].color = initialColor;
+		velocityTail[i] = -circleVelocity;
+		velocityTail[i].x += rand() % 6 - 3;
+		velocityTail[i].y += rand() % 6 - 3;
+	}
+
+
+	for (int i = 0; i < circleTail.getVertexCount(); i++) {
+		velocityTail[i].y += GRAV;
+		circleTail[i].position += velocityTail[i];
+	}
 }
 
 void Firework::goUp() {
@@ -211,5 +226,6 @@ void Firework::draw(sf::RenderWindow& win) {
 	} else {
 		// Only draw circle
 		win.draw(circle);
+		win.draw(circleTail);
 	}
 }
