@@ -1,4 +1,4 @@
-OBJ = main.o
+OBJ = main.o firework.o
 all: game
 
 game: $(OBJ)
@@ -6,10 +6,10 @@ game: $(OBJ)
 	./fireworks.out -g
 
 main.o: main.cpp
-	g++ -std=c++11 -c $<
+	g++ -std=c++14 -c $<
 
-# Battle.o: include/Battle.cpp
-# 	g++ -std=c++11 -c $<
+firework.o: include/Firework.cpp
+	g++ -std=c++14 -c $<
 
 clean:
 	rm *.o
